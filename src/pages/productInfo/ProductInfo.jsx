@@ -13,7 +13,8 @@ function ProductInfo() {
     const { loading, setLoading } = context;
 
     // ✅ FIX: default object (not empty string)
-    const [products, setProducts] = useState({})
+    // const [products, setProducts] = useState({})
+    const [products, setProducts] = useState(null)
     const params = useParams()
 
     const getProductData = async () => {
@@ -37,17 +38,16 @@ function ProductInfo() {
 
     // ✅ FIXED: sanitize Timestamp BEFORE dispatch
     const addCart = (products) => {
-        const safeProduct = {
-            ...products,
-            time: products.time?.toMillis
-                ? products.time.toMillis()
-                : Date.now(),
-        };
+    const safeProduct = {
+        ...products,
+        time: products?.time?.toDate
+            ? products.time.toDate().toISOString()
+            : new Date().toISOString()
+    };
 
-        dispatch(addToCart(safeProduct))
-        toast.success('add to cart');
-    }
-
+    dispatch(addToCart(safeProduct));
+    toast.success('Add to cart');
+};
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems])
