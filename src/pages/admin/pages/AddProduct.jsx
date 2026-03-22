@@ -19,7 +19,7 @@ function AddProduct() {
               name="title"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product title"
-              value={products.title}
+              value={products.title || ""}
               onChange={(e) =>
                 setProducts({ ...products, title: e.target.value })
               }
@@ -31,7 +31,7 @@ function AddProduct() {
               name="price"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product price"
-              value={products.price}
+              value={products.price || ""}
               onChange={(e) =>
                 setProducts({ ...products, price: e.target.value })
               }
@@ -43,7 +43,7 @@ function AddProduct() {
               name="imageurl"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product imageUrl"
-              value={products.imageUrl}
+              value={products.imageUrl || ""}
               onChange={(e) =>
                 setProducts({ ...products, imageUrl: e.target.value })
               }
@@ -55,7 +55,7 @@ function AddProduct() {
               name="category"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product category"
-              value={products.category}
+              value={products.category || ""}
               onChange={(e) =>
                 setProducts({ ...products, category: e.target.value })
               }
@@ -68,7 +68,7 @@ function AddProduct() {
               name="description"
               className="bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product description"
-              value={products.description}
+              value={products.description || ""}
               onChange={(e) =>
                 setProducts({ ...products, description: e.target.value })
               }
