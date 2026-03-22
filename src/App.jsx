@@ -11,22 +11,13 @@ import Signup from "./pages/registration/Signup";
 import ProductInfo from "./pages/productInfo/ProductInfo";
 import AddProduct from "./pages/admin/pages/AddProduct";
 import UpdateProduct from "./pages/admin/pages/UpdateProduct";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import AllProducts from "./pages/allproducts/AllProducts";
-
 function App() {
   return (
     <MyState>
       <Routes>
-        {/* ================= PUBLIC ROUTES ================= */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/allproducts" element={<AllProducts />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/productinfo/:id" element={<ProductInfo />} />
-
-        {/* ================= USER PROTECTED ================= */}
         <Route
           path="/order"
           element={
@@ -35,8 +26,7 @@ function App() {
             </ProtectedRoutes>
           }
         />
-
-        {/* ================= ADMIN PROTECTED ================= */}
+        <Route path="/cart" element={<Cart />} />
         <Route
           path="/dashboard"
           element={
@@ -45,7 +35,12 @@ function App() {
             </ProtectedRoutesForAdmin>
           }
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/allproducts" element={<AllProducts />} />
 
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/productinfo/:id" element={<ProductInfo />} />
+       
         <Route
           path="/addproduct"
           element={
@@ -55,9 +50,9 @@ function App() {
           }
         />
 
-        {/* ✅ FIXED: dynamic id */}
+
         <Route
-          path="/updateproduct/:id"
+          path="/updateproduct"
           element={
             <ProtectedRoutesForAdmin>
               <UpdateProduct />
@@ -65,10 +60,9 @@ function App() {
           }
         />
 
-        {/* ================= FALLBACK ================= */}
+
         <Route path="*" element={<NoPage />} />
       </Routes>
-
       <ToastContainer />
     </MyState>
   );
@@ -76,26 +70,25 @@ function App() {
 
 export default App;
 
-///////////////////////////////////////////////////////////
-// ✅ USER PROTECTED ROUTE
-///////////////////////////////////////////////////////////
-
+//user
 export const ProtectedRoutes = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  return user ? children : <Navigate to="/login" />;
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
 
-///////////////////////////////////////////////////////////
-// ✅ ADMIN PROTECTED ROUTE
-///////////////////////////////////////////////////////////
+// admin
 
 export const ProtectedRoutesForAdmin = ({ children }) => {
-  const admin = JSON.parse(localStorage.getItem("user") || "null");
+  const admin = JSON.parse(localStorage.getItem("user"));
 
-  return admin?.user?.email === "amitbhivsane@gmail.com" ? (
-    children
-  ) : (
-    <Navigate to="/login" />
-  );
+  if (admin?.user?.email === "amitbhivsane@gmail.com") {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
